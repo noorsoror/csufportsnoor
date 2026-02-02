@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Switch Editor</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+
+      <div class="topbar">
+        <h1>Switch Port Editor</h1>
+        <div class="topbarRight">
+          <div id="currentIpBadge" class="badge"></div>
+          <button id="changeSwitchBtn" type="button">Change Switch / Logout</button>
+        </div>
+      </div>
+
+      <section class="card">
+        <div class="row">
+          <h2>Ports</h2>
+          <button id="refreshBtn" type="button">Refresh</button>
+        </div>
+
+        <div class="tableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Port</th>
+                <th>VLAN</th>
+                <th>Dj</th>
+                <th>Alias</th>
+                <th>Room</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card consoleCard">
+        <div class="consoleHeader">
+          <h2>Console</h2>
+          <div class="consoleBtns">
+            <button id="toggleConsoleBtn" type="button">Collapse</button>
+            <button id="clearConsoleBtn" type="button">Clear</button>
+          </div>
+        </div>
+
+        <div class="consoleBody">
+          <pre id="consoleOutput" class="consoleOutput"></pre>
+        </div>
+      </section>
+
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

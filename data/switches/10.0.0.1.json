@@ -1,0 +1,44 @@
+[
+  {
+    "FIELD1": "1",
+    "Switch 1": "",
+    "FIELD3": "",
+    "FIELD4": "",
+    "FIELD5": ""
+  },
+  {
+    "FIELD1": "Port",
+    "Switch 1": "vLAN",
+    "FIELD3": "Dj",
+    "FIELD4": "Alias",
+    "FIELD5": "Room"
+  },
+  {
+    "FIELD1": "1/1/1",
+    "Switch 1": "4",
+    "FIELD3": "1",
+    "FIELD4": "Kevin PC",
+    "FIELD5": "92A"
+  },
+  {
+    "FIELD1": "1/1/2",
+    "Switch 1": "4",
+    "FIELD3": "2",
+    "FIELD4": "Rachel PC",
+    "FIELD5": "92B"
+  },
+  {
+    "FIELD1": "1/1/3",
+    "Switch 1": "4",
+    "FIELD3": "3",
+    "FIELD4": "Austin PC",
+    "FIELD5": "92B"
+  },
+  {
+    "FIELD1": "1/1/4",
+    "Switch 1": "4",
+    "FIELD3": "4",
+    "FIELD4": "Sean PC",
+    "FIELD5": "92D"
+  }
+]
