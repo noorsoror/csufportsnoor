@@ -1,15 +1,18 @@
+/* ===== Base ===== */
 body {
   font-family: system-ui, Arial, sans-serif;
   margin: 0;
   background: #f6f7fb;
 }
 
+/* 🔥 KEY FIX: allow more horizontal space */
 .container {
-  max-width: 1100px;
+  max-width: 1600px;          /* was 1100px */
   margin: 24px auto;
   padding: 0 16px;
 }
 
+/* ===== Cards ===== */
 .card {
   background: white;
   border-radius: 10px;
@@ -57,90 +60,11 @@ button {
   padding: 8px 10px;
 }
 
-/* Console */
-.consoleCard { padding: 12px 16px; }
-
-.consoleHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.consoleBtns {
-  display: flex;
-  gap: 8px;
-}
-
-.consoleBody {
-  margin-top: 10px;
-  border-radius: 10px;
-  border: 1px solid #eee;
-  overflow: hidden;
-}
-
-.consoleOutput {
-  margin: 0;
-  padding: 12px;
-  height: 180px;
-  overflow: auto;
-  background: #0b0f14;
-  color: #e6edf3;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  font-size: 13px;
-  line-height: 1.35;
-}
-
-/* collapsed */
-.consoleCollapsed .consoleBody {
-  display: none;
-}
-.badge {
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: #eef2ff;
-  font-size: 13px;
-}
-
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 18px;
-}
-
-.modal.show { display: flex; }
-
-.modalCard {
-  width: min(520px, 100%);
-  background: white;
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-}
-
-.ipForm {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.ipForm input {
-  flex: 1;
-  height: 38px;
-  padding: 0 10px;
-}
-
-.hint { color: #555; font-size: 13px; }
-/* Top bar */
+/* ===== Top bar ===== */
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
 }
 
 .topbarRight {
@@ -156,7 +80,97 @@ button {
   font-size: 13px;
 }
 
-/* Login page */
+/* ===== TWO COLUMN LAYOUT ===== */
+.mainGrid {
+  display: grid;
+
+  /* LEFT = table gets priority
+     RIGHT = console ~2x wider than before */
+  grid-template-columns: minmax(720px, 1.5fr) 1fr;
+
+  gap: 0;                     /* NO GAP */
+  align-items: start;
+}
+
+.leftPane {
+  min-width: 0;
+}
+
+.rightPane {
+  position: sticky;
+  top: 16px;
+
+  /* divider instead of gap */
+  border-left: 1px solid #e6e6e6;
+  padding-left: 12px;
+  box-sizing: border-box;
+}
+
+/* ===== Console ===== */
+.consoleCard {
+  height: calc((100vh - 120px) / 2);
+  display: flex;
+  flex-direction: column;
+}
+
+.consoleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.consoleBtns {
+  display: flex;
+  gap: 8px;
+}
+
+.consoleBody {
+  flex: 1;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  overflow: hidden;
+}
+
+.consoleOutput {
+  height: 100%;
+  padding: 12px;
+  overflow: auto;
+  background: #0b0f14;
+  color: #e6edf3;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+/* Collapse behavior */
+.consoleCollapsed .consoleBody {
+  display: none;
+}
+
+.consoleCollapsed {
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.consoleCollapsed .consoleHeader {
+  padding: 12px 16px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+/* ===== Non-configured ports ===== */
+.nonConfigured summary {
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+  margin-top: 12px;
+}
+
+/* ===== Login page ===== */
 .loginBody {
   background: #f6f7fb;
 }
@@ -198,55 +212,8 @@ button {
   white-space: pre-wrap;
   color: #b42318;
 }
-.nonConfigured summary {
-  cursor: pointer;
-  user-select: none;
-  font-weight: 600;
-  margin-top: 12px;
-}
-/* ===== Two-column layout ===== */
 
-.mainGrid {
-  display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 16px;
-  align-items: start;
-}
-
-.leftPane {
-  min-width: 0; /* prevents table overflow issues */
-}
-
-.rightPane {
-  position: sticky;
-  top: 16px;
-}
-
-/* Console sizing */
-.consoleCard {
-  height: calc(100vh - 50px);
-  display: flex;
-  flex-direction: column;
-}
-
-.consoleBody {
-  flex: 1;
-  overflow: hidden;
-}
-
-.consoleOutput {
-  height: 100%;
-  overflow: auto;
-}
-
-/* Non-configured ports */
-.nonConfigured summary {
-  cursor: pointer;
-  font-weight: 600;
-  user-select: none;
-}
-
-/* Responsive: stack on small screens */
+/* ===== Responsive ===== */
 @media (max-width: 1100px) {
   .mainGrid {
     grid-template-columns: 1fr;
@@ -254,9 +221,27 @@ button {
 
   .rightPane {
     position: static;
+    border-left: none;
+    padding-left: 0;
   }
 
   .consoleCard {
     height: 300px;
   }
+}
+.leftPane, .rightPane {
+  min-width: 0;
+}
+
+.consoleOutput {
+  white-space: pre;
+  overflow-x: auto;
+}
+.consoleCard {
+  width: 100%;
+  max-width: 100%;
+}
+.portText {
+  font-weight: 600;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }

@@ -104,10 +104,9 @@ app.put("/api/ports/:id", async (req, res) => {
       return res.status(400).json({ error: "Cannot edit header/junk row" });
     }
 
-    if ("port" in update) row.FIELD1 = String(update.port).trim();
     if ("vlan" in update) row["Switch 1"] = String(update.vlan).trim();
     if ("datajack" in update) row.FIELD3 = String(update.datajack).trim();
-    if ("alias" in update) row.FIELD4 = String(update.alias).trim();
+    if ("alias" in update) row.FIELD4 = String(update.alias);
     if ("room" in update) row.FIELD5 = String(update.room).trim();
 
     raw[id] = row;
