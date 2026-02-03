@@ -3,98 +3,98 @@
     "FIELD1": "1/1/1",
     "Switch 1": "103",
     "FIELD3": "D040",
-    "FIELD4": "R2404 D040",
+    "FIELD4": "",
     "FIELD5": "R2404"
   },
   {
     "FIELD1": "1/1/2",
     "Switch 1": "103",
     "FIELD3": "D038",
-    "FIELD4": "R2404 D038",
+    "FIELD4": "",
     "FIELD5": "R2404"
   },
   {
     "FIELD1": "1/1/3",
     "Switch 1": "777",
     "FIELD3": "D018",
-    "FIELD4": "R2404A D018",
+    "FIELD4": "",
     "FIELD5": "R2404A"
   },
   {
     "FIELD1": "1/1/4",
     "Switch 1": "777",
     "FIELD3": "D042",
-    "FIELD4": "R2404 D042",
+    "FIELD4": "Xerox2404",
     "FIELD5": "R2404"
   },
   {
     "FIELD1": "1/1/5",
     "Switch 1": "103",
     "FIELD3": "D043",
-    "FIELD4": "R2404 D043",
+    "FIELD4": "",
     "FIELD5": "R2404"
   },
   {
     "FIELD1": "1/1/6",
     "Switch 1": "103",
     "FIELD3": "D039",
-    "FIELD4": "R2404 D039",
+    "FIELD4": "",
     "FIELD5": "R2404"
   },
   {
     "FIELD1": "1/1/7",
     "Switch 1": "103",
     "FIELD3": "D041",
-    "FIELD4": "R2404 D041",
+    "FIELD4": "",
     "FIELD5": "R2404"
   },
   {
     "FIELD1": "1/1/8",
     "Switch 1": "103",
     "FIELD3": "D037",
-    "FIELD4": "R2404 D037",
+    "FIELD4": "",
     "FIELD5": "R2404"
   },
   {
     "FIELD1": "1/1/9",
     "Switch 1": "103",
     "FIELD3": "D011",
-    "FIELD4": "R2401 D011",
+    "FIELD4": "",
     "FIELD5": "R2401"
   },
   {
     "FIELD1": "1/1/10",
     "Switch 1": "103",
     "FIELD3": "D054",
-    "FIELD4": "R2406 D054",
+    "FIELD4": "",
     "FIELD5": "R2406"
   },
   {
     "FIELD1": "1/1/11",
     "Switch 1": "103",
     "FIELD3": "D025",
-    "FIELD4": "R1406 D025",
+    "FIELD4": "",
     "FIELD5": "R1406"
   },
   {
     "FIELD1": "1/1/12",
     "Switch 1": "103",
     "FIELD3": "D004",
-    "FIELD4": "R2405 D004",
+    "FIELD4": "",
     "FIELD5": "R2405"
   },
   {
     "FIELD1": "1/1/13",
     "Switch 1": "103",
     "FIELD3": "D049",
-    "FIELD4": "R2405 D049",
+    "FIELD4": "",
     "FIELD5": "R2405"
   },
   {
     "FIELD1": "1/1/14",
     "Switch 1": "3",
     "FIELD3": "D002",
-    "FIELD4": "R2405 D002",
+    "FIELD4": "",
     "FIELD5": "R2405"
   },
   {
@@ -108,84 +108,84 @@
     "FIELD1": "1/1/16",
     "Switch 1": "3",
     "FIELD3": "D012",
-    "FIELD4": "R1405 D012",
+    "FIELD4": "",
     "FIELD5": "R1405"
   },
   {
     "FIELD1": "1/1/17",
     "Switch 1": "3",
     "FIELD3": "D059",
-    "FIELD4": "R1401 D059",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
     "FIELD1": "1/1/18",
     "Switch 1": "3",
     "FIELD3": "D016",
-    "FIELD4": "R2404A D016",
+    "FIELD4": "",
     "FIELD5": "R2404A"
   },
   {
     "FIELD1": "1/1/19",
     "Switch 1": "3",
     "FIELD3": "D041",
-    "FIELD4": "R1401 D041",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
     "FIELD1": "1/1/20",
     "Switch 1": "3",
     "FIELD3": "D046",
-    "FIELD4": "R2404C D046",
+    "FIELD4": "",
     "FIELD5": "R2404C"
   },
   {
     "FIELD1": "1/1/21",
     "Switch 1": "3",
     "FIELD3": "D048",
-    "FIELD4": "R1401 D048",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
     "FIELD1": "1/1/22",
     "Switch 1": "203",
     "FIELD3": "D042",
-    "FIELD4": "R1401 D042",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
     "FIELD1": "1/1/23",
     "Switch 1": "3",
     "FIELD3": "D004",
-    "FIELD4": "R1409 D004",
+    "FIELD4": "",
     "FIELD5": "R1409"
   },
   {
     "FIELD1": "1/1/24",
     "Switch 1": "3",
     "FIELD3": "D044",
-    "FIELD4": "R2404C D044",
+    "FIELD4": "",
     "FIELD5": "R2404C"
   },
   {
     "FIELD1": "1/1/25",
     "Switch 1": "3",
     "FIELD3": "D0051",
-    "FIELD4": "R1401 D0051",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
     "FIELD1": "1/1/26",
     "Switch 1": "3",
     "FIELD3": "D039",
-    "FIELD4": "R1401 D039",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
     "FIELD1": "1/1/27",
     "Switch 1": "3",
     "FIELD3": "D047",
-    "FIELD4": "R1401 D047",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
@@ -213,7 +213,7 @@
     "FIELD1": "1/1/31",
     "Switch 1": "3",
     "FIELD3": "D035",
-    "FIELD4": "R1409 D035",
+    "FIELD4": "",
     "FIELD5": "R1409"
   },
   {
@@ -227,7 +227,7 @@
     "FIELD1": "1/1/33",
     "Switch 1": "3",
     "FIELD3": "D017",
-    "FIELD4": "R1401 D017",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
@@ -241,7 +241,7 @@
     "FIELD1": "1/1/35",
     "Switch 1": "3",
     "FIELD3": "D057",
-    "FIELD4": "R1409 D057",
+    "FIELD4": "",
     "FIELD5": "R1409"
   },
   {
@@ -255,35 +255,35 @@
     "FIELD1": "1/1/37",
     "Switch 1": "3",
     "FIELD3": "D018",
-    "FIELD4": "R1401 D018",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
     "FIELD1": "1/1/38",
     "Switch 1": "103",
     "FIELD3": "D053",
-    "FIELD4": "R2406 D053",
+    "FIELD4": "",
     "FIELD5": "R2406"
   },
   {
     "FIELD1": "1/1/39",
     "Switch 1": "3",
     "FIELD3": "D020",
-    "FIELD4": "R1401 D020",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
     "FIELD1": "1/1/40",
     "Switch 1": "3",
     "FIELD3": "D008",
-    "FIELD4": "R1409 D008",
+    "FIELD4": "",
     "FIELD5": "R1409"
   },
   {
     "FIELD1": "1/1/41",
     "Switch 1": "3",
     "FIELD3": "D053",
-    "FIELD4": "R1401 D053",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
@@ -318,7 +318,7 @@
     "FIELD1": "1/1/46",
     "Switch 1": "3",
     "FIELD3": "D045",
-    "FIELD4": "R1401 D045",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
@@ -339,70 +339,70 @@
     "FIELD1": "2/1/1",
     "Switch 1": "103",
     "FIELD3": "D062",
-    "FIELD4": "R1406 D062",
+    "FIELD4": "",
     "FIELD5": "R1406"
   },
   {
     "FIELD1": "2/1/2",
     "Switch 1": "103",
     "FIELD3": "D074",
-    "FIELD4": "R2405 D074",
+    "FIELD4": "",
     "FIELD5": "R2405"
   },
   {
     "FIELD1": "2/1/3",
     "Switch 1": "103",
     "FIELD3": "D064",
-    "FIELD4": "R1406 D064",
+    "FIELD4": "",
     "FIELD5": "R1406"
   },
   {
     "FIELD1": "2/1/4",
     "Switch 1": "103",
     "FIELD3": "D058",
-    "FIELD4": "R2406 D058",
+    "FIELD4": "",
     "FIELD5": "R2406"
   },
   {
     "FIELD1": "2/1/5",
     "Switch 1": "103",
     "FIELD3": "D032",
-    "FIELD4": "R2404A D032",
+    "FIELD4": "",
     "FIELD5": "R2404A"
   },
   {
     "FIELD1": "2/1/6",
     "Switch 1": "103",
     "FIELD3": "D060",
-    "FIELD4": "R2406 D060",
+    "FIELD4": "",
     "FIELD5": "R2406"
   },
   {
     "FIELD1": "2/1/7",
     "Switch 1": "103",
     "FIELD3": "D063",
-    "FIELD4": "R2405 D063",
+    "FIELD4": "",
     "FIELD5": "R2405"
   },
   {
     "FIELD1": "2/1/8",
     "Switch 1": "103",
     "FIELD3": "D064",
-    "FIELD4": "R2405 D064",
+    "FIELD4": "",
     "FIELD5": "R2405"
   },
   {
     "FIELD1": "2/1/9",
     "Switch 1": "103",
     "FIELD3": "D065",
-    "FIELD4": "R2405 D065",
+    "FIELD4": "",
     "FIELD5": "R2405"
   },
   {
     "FIELD1": "2/1/10",
     "Switch 1": "103",
     "FIELD3": "D014",
-    "FIELD4": "D014",
+    "FIELD4": "",
     "FIELD5": ""
   },
   {
@@ -423,14 +423,14 @@
     "FIELD1": "2/1/13",
     "Switch 1": "3",
     "FIELD3": "D071",
-    "FIELD4": "R1401 D071",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
     "FIELD1": "2/1/14",
     "Switch 1": "3",
     "FIELD3": "D058",
-    "FIELD4": "R1401 D058",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
@@ -472,7 +472,7 @@
     "FIELD1": "2/1/20",
     "Switch 1": "3",
     "FIELD3": "D010",
-    "FIELD4": "R1407 D010",
+    "FIELD4": "",
     "FIELD5": "R1407"
   },
   {
@@ -486,7 +486,7 @@
     "FIELD1": "2/1/22",
     "Switch 1": "3",
     "FIELD3": "D056",
-    "FIELD4": "R1401 D056",
+    "FIELD4": "",
     "FIELD5": "R1401"
   },
   {
