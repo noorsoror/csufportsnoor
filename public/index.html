@@ -9,6 +9,7 @@
   <body>
     <main class="container">
 
+      <!-- Top bar -->
       <div class="topbar">
         <h1>Switch Port Editor</h1>
         <div class="topbarRight">
@@ -16,46 +17,81 @@
           <button id="changeSwitchBtn" type="button">Change Switch / Logout</button>
         </div>
       </div>
-
-      <section class="card">
-        <div class="row">
-          <h2>Ports</h2>
-          <button id="refreshBtn" type="button">Refresh</button>
+    
+      <!-- Two-column layout -->
+      <div class="mainGrid">
+    
+        <!-- LEFT: Port tables -->
+        <div class="leftPane">
+    
+          <section class="card">
+            <div class="row">
+              <h2>Ports</h2>
+              <button id="refreshBtn" type="button">Refresh</button>
+            </div>
+    
+            <div class="tableWrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Port</th>
+                    <th>VLAN</th>
+                    <th>Dj</th>
+                    <th>Alias</th>
+                    <th>Room</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyConfigured"></tbody>
+              </table>
+            </div>
+          </section>
+    
+          <!-- Collapsed non-configured ports -->
+          <details id="unconfiguredDetails" class="card nonConfigured">
+            <summary>View non configured ports</summary>
+    
+            <div class="tableWrap" style="margin-top:10px;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Port</th>
+                    <th>VLAN</th>
+                    <th>Dj</th>
+                    <th>Alias</th>
+                    <th>Room</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyUnconfigured"></tbody>
+              </table>
+            </div>
+          </details>
+    
         </div>
-
-        <div class="tableWrap">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Port</th>
-                <th>VLAN</th>
-                <th>Dj</th>
-                <th>Alias</th>
-                <th>Room</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="tbody"></tbody>
-          </table>
+    
+        <!-- RIGHT: Console -->
+        <div class="rightPane">
+          <section class="card consoleCard">
+            <div class="consoleHeader">
+              <h2>Command Console</h2>
+              <div class="consoleBtns">
+                <button id="toggleConsoleBtn" type="button">Collapse</button>
+                <button id="clearConsoleBtn" type="button">Clear</button>
+              </div>
+            </div>
+    
+            <div class="consoleBody">
+              <pre id="consoleOutput" class="consoleOutput"></pre>
+            </div>
+          </section>
         </div>
-      </section>
-
-      <section class="card consoleCard">
-        <div class="consoleHeader">
-          <h2>Console</h2>
-          <div class="consoleBtns">
-            <button id="toggleConsoleBtn" type="button">Collapse</button>
-            <button id="clearConsoleBtn" type="button">Clear</button>
-          </div>
-        </div>
-
-        <div class="consoleBody">
-          <pre id="consoleOutput" class="consoleOutput"></pre>
-        </div>
-      </section>
-
+    
+      </div>
     </main>
+    
 
     <script src="app.js"></script>
   </body>

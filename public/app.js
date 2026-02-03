@@ -1,10 +1,9 @@
 // =========================
-// public/app.js (updated)
-// - preserves alias if input left blank
-// - logs alias in format:
-//     interface members port X/Y/Z alias "(Room DJ), Alias"
-//   (omits parts that are missing)
-// - still auto-replaces R#### / D### tokens in alias when present
+// public/app.js
+// - If alias is CLEARED and saved => stored alias becomes "<ROOM> <DJ>" (or "" if both blank)
+// - Console alias format: interface members port X/X/X alias "<Room DJ, Alias>"
+// - VLAN Alcatel: vlan <vlan> members port <port> untagged
+// - Non-configured ports moved to collapsed section
 // =========================
 
 // ---------- IP helpers ----------
@@ -14,11 +13,7 @@ function getCurrentIp() {
 function clearCurrentIp() {
   localStorage.removeItem("switchIp");
 }
-// redirect to login if no IP
-const currentIp = getCurrentIp();
-if (!currentIp) {
-  window.location.replace("/login.html");
-}
+if (!getCurrentIp()) window.location.replace("/login.html");
 
 // ---------- API helper ----------
 async function api(path, options) {
@@ -47,6 +42,7 @@ function escapeHtml(str) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
+
 function nowStamp() {
   return new Date().toLocaleTimeString();
 }
@@ -56,17 +52,20 @@ function normalizeRoom(room) {
   const m = r.match(/^R(\d+)$/i);
   return m ? `R${m[1]}` : r;
 }
+
 function normalizeDj(dj) {
   const d = String(dj ?? "").trim();
   const m = d.match(/^D(\d{1,4})$/i);
-  return m ? `D${m[1].padStart(3, "0")}` : d; // pads to 3 digits (D040)
+  return m ? `D${m[1].padStart(3, "0")}` : d; // D40 -> D040
 }
 
-/**
- * Replace R#### and D### tokens inside alias if they exist.
- * If alias contains R\d+, replace the first occurrence with newRoom (if newRoom is R\d+).
- * If alias contains D\d{3,4}, replace first occurrence with newDj (if newDj is D###).
- */
+function roomDjOnly(room, dj) {
+  const r = normalizeRoom(room);
+  const d = normalizeDj(dj);
+  if (r && d) return `${r} ${d}`;
+  return r || d || "";
+}
+
 function autoAliasFromRoomAndDj(oldAlias, newRoom, newDj) {
   let alias = String(oldAlias ?? "");
   const room = normalizeRoom(newRoom);
@@ -78,21 +77,29 @@ function autoAliasFromRoomAndDj(oldAlias, newRoom, newDj) {
   if (/D\d{3,4}/i.test(alias) && /^D\d{3,4}$/i.test(dj)) {
     alias = alias.replace(/D\d{3,4}/i, dj);
   }
-  alias = alias.replace(/\s+/g, " ").trim();
-  return alias;
+  return alias.replace(/\s+/g, " ").trim();
 }
 
-// ---------- Console logging ----------
+function isNonConfigured(row) {
+  const vlan = String(row.vlan ?? "").trim();
+  const dj = String(row.datajack ?? "").trim();
+  const alias = String(row.alias ?? "").trim();
+  const room = String(row.room ?? "").trim();
+  return vlan === "" && dj === "" && alias === "" && room === "";
+}
+
+// ---------- Console ----------
 function logConsole(line) {
   const out = document.getElementById("consoleOutput");
   out.textContent += `[${nowStamp()}] ${line}\n`;
   out.scrollTop = out.scrollHeight;
+
   document.querySelector(".consoleCard")?.classList.remove("consoleCollapsed");
   const t = document.getElementById("toggleConsoleBtn");
   if (t) t.textContent = "Collapse";
 }
 
-// ---------- Table template ----------
+// ---------- Table ----------
 function rowTemplate(item) {
   return `
     <tr data-id="${item.id}">
@@ -110,66 +117,69 @@ function rowTemplate(item) {
 let currentRows = [];
 
 async function loadTable() {
-  const data = await api("/api/ports"); // returns { ip, rows }
+  const data = await api("/api/ports"); // { ip, rows }
   currentRows = data.rows;
+
   const badge = document.getElementById("currentIpBadge");
   if (badge) badge.textContent = `IP: ${data.ip}`;
-  document.getElementById("tbody").innerHTML = currentRows.map(rowTemplate).join("");
+
+  const configured = currentRows.filter((r) => !isNonConfigured(r));
+  const unconfigured = currentRows.filter((r) => isNonConfigured(r));
+
+  document.getElementById("tbodyConfigured").innerHTML = configured.map(rowTemplate).join("");
+  document.getElementById("tbodyUnconfigured").innerHTML = unconfigured.map(rowTemplate).join("");
+
+  // If there are zero unconfigured, hide the details
+  const details = document.getElementById("unconfiguredDetails");
+  if (details) {
+    details.style.display = unconfigured.length ? "" : "none";
+    // keep collapsed by default
+    details.open = false;
+  }
 }
 
 // ---------- Buttons ----------
-document.getElementById("refreshBtn").addEventListener("click", () => {
+document.getElementById("refreshBtn")?.addEventListener("click", () => {
   loadTable().catch((e) => alert(e.message));
 });
-document.getElementById("changeSwitchBtn").addEventListener("click", () => {
+
+document.getElementById("changeSwitchBtn")?.addEventListener("click", () => {
   clearCurrentIp();
   window.location.href = "/login.html";
 });
+
+// Console controls
 const consoleCard = document.querySelector(".consoleCard");
-document.getElementById("toggleConsoleBtn").addEventListener("click", () => {
+document.getElementById("toggleConsoleBtn")?.addEventListener("click", () => {
   const collapsed = consoleCard.classList.toggle("consoleCollapsed");
   document.getElementById("toggleConsoleBtn").textContent = collapsed ? "Expand" : "Collapse";
 });
-document.getElementById("clearConsoleBtn").addEventListener("click", () => {
+document.getElementById("clearConsoleBtn")?.addEventListener("click", () => {
   document.getElementById("consoleOutput").textContent = "";
 });
 
-// ---------- Save handler ----------
-document.getElementById("tbody").addEventListener("click", async (e) => {
+// ---------- Save handler (works for BOTH tables) ----------
+document.addEventListener("click", async (e) => {
   if (!e.target.classList.contains("saveBtn")) return;
+
   const tr = e.target.closest("tr");
   if (!tr) return;
+
   const id = Number(tr.dataset.id);
 
-  // Build payload from inputs
+  // Build payload
   const payload = {};
   tr.querySelectorAll("input.cell").forEach((inp) => {
     payload[inp.dataset.field] = inp.value;
   });
 
-  // Normalize new room/dj early
-  const newRoomRaw = payload.room ?? "";
-  const newDjRaw = payload.datajack ?? "";
-
-  const newRoom = normalizeRoom(newRoomRaw);
-  const newDj = normalizeDj(newDjRaw);
-
-  // Keep normalized values in payload (so saved file uses standard format)
+  // Normalize room/dj
+  const newRoom = normalizeRoom(payload.room ?? "");
+  const newDj = normalizeDj(payload.datajack ?? "");
   payload.room = newRoom;
   payload.datajack = newDj;
 
-  // If user left alias input BLANK, do NOT send alias in payload (preserve existing)
-  // This avoids accidentally clearing alias when the input is empty.
-  if ("alias" in payload) {
-    const trimmed = String(payload.alias ?? "").trim();
-    if (trimmed === "") {
-      delete payload.alias; // preserve stored alias
-    } else {
-      payload.alias = String(payload.alias).trim();
-    }
-  }
-
-  // Old record for diffs
+  // Old record
   const oldRec = currentRows.find((x) => x.id === id) || {};
   const oldAlias = String(oldRec.alias ?? "");
   const oldVlan = String(oldRec.vlan ?? "").trim();
@@ -179,25 +189,35 @@ document.getElementById("tbody").addEventListener("click", async (e) => {
   const roomChanged = oldRoom !== newRoom;
   const djChanged = oldDj !== newDj;
 
-  // Auto-replace tokens in alias if alias already has tokens
-  // Use stored alias (oldAlias) as base only if payload.alias wasn't explicitly provided
-  let baseAliasForAuto = oldAlias;
-  if ("alias" in payload) {
-    baseAliasForAuto = payload.alias; // user typed something, respect it
-  }
+  // Detect explicit alias clear
+  const aliasInputRaw = "alias" in payload ? String(payload.alias ?? "") : "";
+  const aliasCleared = aliasInputRaw.trim() === "";
 
-  const newAliasAuto = autoAliasFromRoomAndDj(baseAliasForAuto, newRoom, newDj);
+  // If alias cleared: FORCE alias to "<ROOM> <DJ>" (or "" if both blank)
+  // This prevents “old alias coming back”
+  if (aliasCleared) {
+    const forced = roomDjOnly(newRoom, newDj); // may be ""
+    payload.alias = forced;
 
-  // If auto-replacement changed alias, set payload.alias (thus updating stored alias)
-  if (newAliasAuto !== baseAliasForAuto) {
-    payload.alias = newAliasAuto;
-    // update visible input immediately so user sees it
+    // update visible input
     const aliasInput = tr.querySelector('input.cell[data-field="alias"]');
-    if (aliasInput) aliasInput.value = newAliasAuto;
+    if (aliasInput) aliasInput.value = forced;
+  } else {
+    // user typed something (non-empty)
+    payload.alias = aliasInputRaw.trim();
   }
 
-  // If user didn't type an alias and auto didn't change alias, we will preserve stored alias by not including alias key.
-  // (We already deleted alias above if the user left it blank.)
+  // If room/dj changed AND user did NOT clear alias, update tokens in alias when present
+  // (when they clear alias, we want ONLY Room+DJ, no token logic)
+  if (!aliasCleared && (roomChanged || djChanged)) {
+    const base = payload.alias || oldAlias;
+    const auto = autoAliasFromRoomAndDj(base, newRoom, newDj);
+    if (auto !== base) {
+      payload.alias = auto;
+      const aliasInput = tr.querySelector('input.cell[data-field="alias"]');
+      if (aliasInput) aliasInput.value = auto;
+    }
+  }
 
   // Update backend
   let updated;
@@ -211,44 +231,32 @@ document.getElementById("tbody").addEventListener("click", async (e) => {
     return;
   }
 
-  // After save, build the console display alias in the requested format:
-  // "(Room DJ), Alias"  where Alias is the stored alias (if any)
-  const storedAlias = String(updated.alias ?? "").trim();
-  const roomPart = newRoom || "";
-  const djPart = newDj || "";
-  let roomDjPart = "";
-  if (roomPart && djPart) roomDjPart = `${roomPart} ${djPart}`;
-  else if (roomPart) roomDjPart = roomPart;
-  else if (djPart) roomDjPart = djPart;
-
-  let displayAlias = roomDjPart;
-  if (storedAlias) {
-    displayAlias = displayAlias ? `${displayAlias}, ${storedAlias}` : storedAlias;
-  }
-  displayAlias = displayAlias.trim();
-
   const port = String(updated.port ?? "").trim();
   const newVlan = String(updated.vlan ?? "").trim();
+  const storedAlias = String(updated.alias ?? "").trim();
 
-  // Determine whether to log alias command:
-  // log if room or dj changed OR stored alias changed compared to oldAlias
-  const storedAliasChanged = storedAlias !== oldAlias;
-  if (roomChanged || djChanged || storedAliasChanged) {
-    // Use exact phrase requested: "interface members port ..."
-    if (displayAlias) {
-      logConsole(`interface members port ${port} alias "${displayAlias}"`);
-    } else {
-      // If no display alias (unlikely), still log a simple alias change
-      logConsole(`interface members port ${port} alias "${storedAlias}"`);
-    }
+  // Build console alias string: "<Room DJ, Alias>" (no duplicates)
+  const rdj = roomDjOnly(newRoom, newDj).trim();
+  let displayAlias = rdj;
+
+  if (storedAlias && storedAlias !== rdj) {
+    displayAlias = displayAlias ? `${displayAlias}, ${storedAlias}` : storedAlias;
   }
 
-  // VLAN command (Alcatel) using previous behavior
+  // Alias console log: log when:
+  // - alias was cleared (always)
+  // - or room/dj changed
+  // - or alias changed
+  const storedAliasChanged = storedAlias !== oldAlias.trim();
+  if (aliasCleared || roomChanged || djChanged || storedAliasChanged) {
+    logConsole(`interface members port ${port} alias "${displayAlias}"`);
+  }
+
+  // VLAN command (Alcatel)
   if (oldVlan !== newVlan && newVlan !== "") {
     logConsole(`vlan ${newVlan} members port ${port} untagged`);
   }
 
-  // Refresh table
   await loadTable();
 });
 

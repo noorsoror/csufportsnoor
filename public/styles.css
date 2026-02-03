@@ -198,3 +198,65 @@ button {
   white-space: pre-wrap;
   color: #b42318;
 }
+.nonConfigured summary {
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  margin-top: 12px;
+}
+/* ===== Two-column layout ===== */
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 16px;
+  align-items: start;
+}
+
+.leftPane {
+  min-width: 0; /* prevents table overflow issues */
+}
+
+.rightPane {
+  position: sticky;
+  top: 16px;
+}
+
+/* Console sizing */
+.consoleCard {
+  height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: column;
+}
+
+.consoleBody {
+  flex: 1;
+  overflow: hidden;
+}
+
+.consoleOutput {
+  height: 100%;
+  overflow: auto;
+}
+
+/* Non-configured ports */
+.nonConfigured summary {
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 1100px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .rightPane {
+    position: static;
+  }
+
+  .consoleCard {
+    height: 300px;
+  }
+}
